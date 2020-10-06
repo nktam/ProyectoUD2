@@ -1,0 +1,7 @@
+{
+  "name": "ProyectoUD2",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
