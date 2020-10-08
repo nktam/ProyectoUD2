@@ -9,7 +9,6 @@
 <ion-content [fullscreen]="true">
   <!-- List of Input Items -->
   <ion-list>
-
     <ion-item-sliding>
       <ion-item>
         <ion-label>Checkbox</ion-label>
@@ -27,18 +26,16 @@
       </ion-item-options>
     </ion-item-sliding>
 
-
   </ion-list>
 
   <ion-text color="secondary">
     <h2>Tareas finalizadas</h2>
   </ion-text>
 
-
   <ion-list>
-    <ion-item-sliding *ngFor='let item of listaTareas'>
+    <ion-item-sliding *ngFor='let item of servicio.tareas'>
       <ion-item>
-        <ion-label>{{item.descripcion}}</ion-label>
+        <ion-label>{{item.descripcion | negrita}}</ion-label>
         <ion-checkbox slot="start"></ion-checkbox>
       </ion-item>
       <ion-item-options side="end">
