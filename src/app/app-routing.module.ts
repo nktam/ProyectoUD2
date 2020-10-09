@@ -12,6 +12,10 @@ const routes: Routes = [
     redirectTo: "home",
     pathMatch: "full",
   },
+  {
+    path: 'modal-tarea',
+    loadChildren: () => import('./modal-tarea/modal-tarea.module').then( m => m.ModalTareaPageModule)
+  },
 ];
 
 @NgModule({
