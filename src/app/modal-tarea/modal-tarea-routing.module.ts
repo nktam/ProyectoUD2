@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 
-import { ModalTareaPage } from './modal-tarea.page';
+import {ModalTareaPage} from './modal-tarea.page';
 
-const routes: Routes = [
+const routes: Routes=[
   {
     path: '',
     component: ModalTareaPage
