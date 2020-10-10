@@ -27,6 +27,23 @@ export class HomePage {
 
   }
 
+  public addTareaTerminada(id, descripcion, importante) {
+
+    // para buscar la posición en el array
+    let pos=-1;
+    for(let i=0;i<this.servicio.tareas.length;i++) {
+      if(this.servicio.tareas[i].id===id) {
+        pos=i;
+      }
+    }
+
+    //eliminamos de tareas 
+    this.servicio.tareas=[...this.servicio.tareas.slice(0, pos), ...this.servicio.tareas.slice(pos+1)];
+
+    // la metemos en tareas realizadas
+    this.servicio.tareaRealizada(new Tarea(descripcion, importante, true, id));
+  }
+
 
 
 }
