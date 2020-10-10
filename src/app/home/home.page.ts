@@ -17,33 +17,35 @@ export class HomePage {
     const modal=await this.modalCtrl.create({
       component: ModalTareaPage
     });
-
     await modal.present();
     let {data}=await modal.onWillDismiss();
-    console.log(data);
     if(data) {
       this.servicio.addTarea(new Tarea(data.data.descripcion, data.data.importante));
     }
-
+    console.log(data.data);
   }
 
   public addTareaTerminada(id, descripcion, importante) {
-
-    // para buscar la posición en el array
-    let pos=-1;
-    for(let i=0;i<this.servicio.tareas.length;i++) {
-      if(this.servicio.tareas[i].id===id) {
-        pos=i;
-      }
-    }
-
-    //eliminamos de tareas 
-    this.servicio.tareas=[...this.servicio.tareas.slice(0, pos), ...this.servicio.tareas.slice(pos+1)];
-
-    // la metemos en tareas realizadas
-    this.servicio.tareaRealizada(new Tarea(descripcion, importante, true, id));
+    const pos=this.servicio.buscarTarea(id);
+    this.servicio.eliminarTarea(pos);
+    this.servicio.addTareaTerminada(new Tarea(descripcion, importante, true, id));
   }
 
+  public devolverTarea(id, descripcion, importante) {
+    const pos=this.servicio.buscarTareaTerminada(id);
+    this.servicio.eliminarTareaTerminada(pos);
+    this.servicio.addTarea(new Tarea(descripcion, importante, true, id));
+  }
+
+  public borrarTarea(id) {
+    const pos=this.servicio.buscarTarea(id);
+    this.servicio.eliminarTarea(pos);
+  }
+
+  public borrarTareaTerminada(id) {
+    const pos=this.servicio.buscarTareaTerminada(id);
+    this.servicio.eliminarTareaTerminada(pos);
+  }
 
 
 }

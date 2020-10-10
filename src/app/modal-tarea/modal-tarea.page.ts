@@ -14,7 +14,7 @@ export class ModalTareaPage implements OnInit {
   constructor(public modalCtrl: ModalController, public formBuilder: FormBuilder) {
     this.formulario=formBuilder.group({
       descripcion: ['', Validators.compose([Validators.required, Validators.maxLength(60)])],
-      importante: ['']
+      importante: [false]
     });
   }
 
