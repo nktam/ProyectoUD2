@@ -6,10 +6,14 @@
 </ion-header>
 
 <ion-content>
-  <form [formGroup]='formulario' (ngsubmit)='enviar(formulario.value)'>
+  <form [formGroup]='formulario' (ngSubmit)='enviar(formulario.value)'>
     <ion-item>
       <ion-label position='floating'> Descripción </ion-label>
       <ion-input formControlName='descripcion' type='text'></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-checkbox formControlName='importante'></ion-checkbox>
+      <ion-label> Importante </ion-label>
     </ion-item>
     <ion-button color='primary' expand='block' type='submit' [disabled]='!formulario.valid'>
       Añadir tarea

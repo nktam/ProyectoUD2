@@ -7,11 +7,15 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- List of Input Items -->
+
   <ion-list>
-    <ion-item-sliding>
+    <ion-item-sliding *ngFor='let item of servicio.tareas'>
       <ion-item>
-        <ion-label>Checkbox</ion-label>
+        <ion-label>
+          <span *ngIf="item.importante; else elseBlock" [innerHTML]="item.descripcion | negrita"></span>
+          <ng-template #elseBlock>{{item.descripcion}}</ng-template>
+        </ion-label>
+
         <ion-checkbox slot="start"></ion-checkbox>
       </ion-item>
       <ion-item-options side="end">
@@ -25,7 +29,6 @@
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
-
   </ion-list>
 
   <ion-text color="secondary">
@@ -49,7 +52,6 @@
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
-
   </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">

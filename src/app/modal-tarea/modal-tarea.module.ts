@@ -8,10 +8,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     IonicModule,
-    ReactiveFormsModule,
-    ModalTareaPageRoutingModule
+    ModalTareaPageRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [ModalTareaPage]
 })

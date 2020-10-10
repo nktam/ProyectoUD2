@@ -1,7 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {ModalController} from '@ionic/angular';
-import {FormBuilder, Validators} from '@angular/forms';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormBuilder, Validators, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-modal-tarea',
@@ -10,17 +9,24 @@ import {ReactiveFormsModule} from '@angular/forms';
 })
 export class ModalTareaPage implements OnInit {
 
-  formulario;
+  private formulario: FormGroup;
 
   constructor(public modalCtrl: ModalController, public formBuilder: FormBuilder) {
-    this.formulario=formBuilder.group({descripcion: ['', Validators.compose([Validators.maxLength(40)])]});
+    this.formulario=formBuilder.group({
+      descripcion: ['', Validators.compose([Validators.required, Validators.maxLength(60)])],
+      importante: ['']
+    });
   }
 
   ngOnInit() {
   }
 
-  cerrar() {
+  public cerrar() {
     this.modalCtrl.dismiss({});
+  }
+
+  public enviar(value) {
+    this.modalCtrl.dismiss({data: value});
   }
 
 }
