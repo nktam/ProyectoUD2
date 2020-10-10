@@ -10,55 +10,59 @@
 
   <ion-list>
     <ion-item-sliding *ngFor='let item of servicio.tareas'>
-      <ion-item>
-        <ion-label>
-          <span *ngIf="item.importante; else elseBlock" [innerHTML]="item.descripcion | negrita"></span>
-          <ng-template #elseBlock>{{item.descripcion}}</ng-template>
-        </ion-label>
-        <ion-checkbox slot="start" (click)='addTareaTerminada(item.id,item.descripcion,item.importante)'></ion-checkbox>
-      </ion-item>
-      <ion-item-options side="end">
-        <ion-item-option (click)="modificar(item)">
-          <ion-icon name="document-text"></ion-icon>
-          Modificar
-        </ion-item-option>
-        <ion-item-option color='danger' (click)="borrarTarea(item.id)">
-          <ion-icon name="close-circle"></ion-icon>
-          Eliminar
-        </ion-item-option>
-      </ion-item-options>
+      <div *ngIf="!item.realizada">
+        <ion-item>
+          <ion-label>
+            <span *ngIf="item.importante; else elseBlock" [innerHTML]="item.descripcion | negrita"></span>
+            <ng-template #elseBlock>{{item.descripcion}}</ng-template>
+          </ion-label>
+          <ion-checkbox slot="start" (click)='tareaRealizada(item)'></ion-checkbox>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option (click)="modificarTarea(item)">
+            <ion-icon name="document-text"></ion-icon>
+            Modificar
+          </ion-item-option>
+          <ion-item-option color='danger' (click)="borrarTarea(item)">
+            <ion-icon name="close-circle"></ion-icon>
+            Eliminar
+          </ion-item-option>
+        </ion-item-options>
+      </div>
     </ion-item-sliding>
   </ion-list>
 
-  <ion-text color="secondary" *ngIf='servicio.tareasTerminadas.length > 0'>
+  <ion-text color="secondary" *ngIf='servicio.tareas.length > 0'>
     <h2>Tareas finalizadas</h2>
   </ion-text>
 
   <ion-list>
-    <ion-item-sliding *ngFor='let item of servicio.tareasTerminadas'>
-      <ion-item>
-        <ion-label>
-          <span *ngIf="item.importante; else elseBlock" [innerHTML]="item.descripcion | negrita"></span>
-          <ng-template #elseBlock>{{item.descripcion}}</ng-template>
-        </ion-label>
-        <ion-checkbox checked="true" slot="start" (click)='devolverTarea(item.id,item.descripcion,item.importante)'>
-        </ion-checkbox>
-      </ion-item>
-      <ion-item-options side="end">
-        <ion-item-option (click)="modificar(item)">
-          <ion-icon name="document-text"></ion-icon>
-          Modificar
-        </ion-item-option>
-        <ion-item-option color='danger' (click)="borrarTareaTerminada(item.id)">
-          <ion-icon name="close-circle"></ion-icon>
-          Eliminar
-        </ion-item-option>
-      </ion-item-options>
+    <ion-item-sliding *ngFor='let item of servicio.tareas'>
+      <div *ngIf="item.realizada">
+        <ion-item>
+          <ion-label>
+            <span *ngIf="item.importante; else elseBlock" [innerHTML]="item.descripcion | negrita"></span>
+            <ng-template #elseBlock>{{item.descripcion}}</ng-template>
+          </ion-label>
+          <ion-checkbox checked="true" slot="start" (click)='tareaSinRealizar(item)'>
+          </ion-checkbox>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option (click)="modificarTarea(item)">
+            <ion-icon name="document-text"></ion-icon>
+            Modificar
+          </ion-item-option>
+          <ion-item-option color='danger' (click)="borrarTarea(item)">
+            <ion-icon name="close-circle"></ion-icon>
+            Eliminar
+          </ion-item-option>
+        </ion-item-options>
+      </div>
     </ion-item-sliding>
   </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)='addTarea()'>
+    <ion-fab-button (click)='nuevaTarea()'>
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
