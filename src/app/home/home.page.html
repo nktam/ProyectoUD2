@@ -7,23 +7,22 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
   <ion-list>
-    <ion-item-sliding *ngFor='let item of servicio.tareas'>
-      <div *ngIf="!item.realizada">
+    <ion-item-sliding *ngFor='let tarea of servicio.tareas'>
+      <div *ngIf="!tarea.realizada">
         <ion-item>
           <ion-label>
-            <span *ngIf="item.importante; else elseBlock" [innerHTML]="item.descripcion | negrita"></span>
-            <ng-template #elseBlock>{{item.descripcion}}</ng-template>
+            <span *ngIf="tarea.importante; else elseBlock" [innerHTML]="tarea.descripcion | negrita"></span>
+            <ng-template #elseBlock>{{tarea.descripcion}}</ng-template>
           </ion-label>
-          <ion-checkbox slot="start" (click)='tareaRealizada(item)'></ion-checkbox>
+          <ion-checkbox slot="start" (click)='tareaRealizada(tarea)'></ion-checkbox>
         </ion-item>
         <ion-item-options side="end">
-          <ion-item-option (click)="modificarTarea(item)">
+          <ion-item-option (click)="modificarTarea(tarea)">
             <ion-icon name="document-text"></ion-icon>
             Modificar
           </ion-item-option>
-          <ion-item-option color='danger' (click)="borrarTarea(item)">
+          <ion-item-option color='danger' (click)="borrarTarea(tarea)">
             <ion-icon name="close-circle"></ion-icon>
             Eliminar
           </ion-item-option>
@@ -37,22 +36,22 @@
   </ion-text>
 
   <ion-list>
-    <ion-item-sliding *ngFor='let item of servicio.tareas'>
-      <div *ngIf="item.realizada">
+    <ion-item-sliding *ngFor='let tarea of servicio.tareas'>
+      <div *ngIf="tarea.realizada">
         <ion-item>
           <ion-label>
-            <span *ngIf="item.importante; else elseBlock" [innerHTML]="item.descripcion | negrita"></span>
-            <ng-template #elseBlock>{{item.descripcion}}</ng-template>
+            <span *ngIf="tarea.importante; else elseBlock" [innerHTML]="tarea.descripcion | negrita"></span>
+            <ng-template #elseBlock>{{tarea.descripcion}}</ng-template>
           </ion-label>
-          <ion-checkbox checked="true" slot="start" (click)='tareaSinRealizar(item)'>
+          <ion-checkbox checked="true" slot="start" (click)='tareaSinRealizar(tarea)'>
           </ion-checkbox>
         </ion-item>
         <ion-item-options side="end">
-          <ion-item-option (click)="modificarTarea(item)">
+          <ion-item-option (click)="modificarTarea(tarea)">
             <ion-icon name="document-text"></ion-icon>
             Modificar
           </ion-item-option>
-          <ion-item-option color='danger' (click)="borrarTarea(item)">
+          <ion-item-option color='danger' (click)="borrarTarea(tarea)">
             <ion-icon name="close-circle"></ion-icon>
             Eliminar
           </ion-item-option>

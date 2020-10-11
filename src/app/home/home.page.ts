@@ -13,6 +13,7 @@ import {Tarea} from '../model/tarea';
 export class HomePage {
   constructor(public servicio: ServicioTareaService, public modalCtrl: ModalController) {}
 
+  // Abrimos modal-tarea. Esperamos a que se cierre (onWillDismiss) para recoger los datos.
   async nuevaTarea() {
     const modal=await this.modalCtrl.create({
       component: ModalTareaPage
@@ -24,43 +25,41 @@ export class HomePage {
     }
   }
 
-  async modificarTarea(item) {
+  // Abrimos modal-tarea y envimos los Props con la tarea. Esperamos a que se cierre (onWillDismiss) para recoger los datos.
+  async modificarTarea(tarea: Tarea) {
     const modal=await this.modalCtrl.create({
       component: ModalTareaPage,
       componentProps: {
-        descripcionProp: item.descripcion,
-        importanteProp: item.importante,
-        realizadaProp: item.realizada,
-        idProp: item.id
+        tareaProp: tarea
       }
     });
     await modal.present();
     let {data}=await modal.onWillDismiss();
     if(data) {
-      const pos=this.servicio.buscarTarea(item);
+      const pos=this.servicio.buscarTarea(tarea);
       this.servicio.eliminarTarea(pos);
-      this.servicio.addTarea(new Tarea(data.data.descripcion, data.data.importante, item.realizada, item.id));
+      this.servicio.addTarea(new Tarea(data.data.descripcion, data.data.importante, tarea.realizada, tarea.id));
     }
   }
 
-  public tareaRealizada(tarea) {
+  // Marcamos la tarea cómo realizada
+  public tareaRealizada(tarea: Tarea) {
     const pos=this.servicio.buscarTarea(tarea);
     this.servicio.eliminarTarea(pos);
     this.servicio.addTarea(new Tarea(tarea.descripcion, tarea.importante, true, tarea.id));
   }
 
-  public tareaSinRealizar(tarea) {
+  // Dejamos la tarea cómo no realizada
+  public tareaSinRealizar(tarea: Tarea) {
     const pos=this.servicio.buscarTarea(tarea);
     this.servicio.eliminarTarea(pos);
     this.servicio.addTarea(new Tarea(tarea.descripcion, tarea.importante, false, tarea.id));
   }
 
-  public borrarTarea(tarea) {
+  public borrarTarea(tarea: Tarea) {
     const pos=this.servicio.buscarTarea(tarea);
     this.servicio.eliminarTarea(pos);
   }
-
-
 
 }
 

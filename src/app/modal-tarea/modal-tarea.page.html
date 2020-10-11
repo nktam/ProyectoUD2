@@ -4,24 +4,24 @@
     <ion-buttons slot="end" (click)='cerrar()'>
       <ion-icon name="close-circle-outline" color='danger' size='large'></ion-icon>
     </ion-buttons>
-
-
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <form [formGroup]='formulario' (ngSubmit)='enviar(formulario.value)'>
     <ion-item>
-      <ion-label position='floating'> Descripción </ion-label>
-      <ion-input formControlName='descripcion' type='text'></ion-input>
+      <ion-input formControlName='descripcion' type='text' placeholder='Descripción'></ion-input>
     </ion-item>
     <ion-item>
       <ion-checkbox formControlName='importante'></ion-checkbox>
       <ion-label> Importante </ion-label>
     </ion-item>
-    <ion-button color='primary' expand='block' type='submit' [disabled]='!formulario.valid'>
-      Añadir tarea
-    </ion-button>
+    <div class="divboton">
+      <ion-button color='primary' type='submit' [disabled]='!formulario.valid'>
+        Añadir tarea
+      </ion-button>
+    </div>
+
   </form>
 
 </ion-content>
