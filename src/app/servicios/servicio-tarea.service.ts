@@ -11,8 +11,8 @@ export class ServicioTareaService {
     this.tareas=[
       new Tarea('Comprar pan', true, false),
       new Tarea('Recoger moto', true, false),
-      new Tarea('Hacer deberes', false, false),
       new Tarea('Comprar moto', true, true),
+      new Tarea('Hacer deberes', false, false),
       new Tarea('Deporte', false, true),
     ];
   }

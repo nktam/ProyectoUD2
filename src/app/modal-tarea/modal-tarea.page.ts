@@ -14,6 +14,7 @@ export class ModalTareaPage implements OnInit {
   tareaProp;
 
   constructor(public modalCtrl: ModalController, public formBuilder: FormBuilder) {
+    // creamos el formulario con la validación
     this.formulario=formBuilder.group({
       descripcion: ['', Validators.compose([Validators.required, Validators.maxLength(60)])],
       importante: [false]
@@ -22,10 +23,12 @@ export class ModalTareaPage implements OnInit {
 
   ngOnInit() {
     // Recogemos los datos de la tarea desde home.page modificarTarea()
-    this.formulario.controls.descripcion.setValue(this.tareaProp.descripcion);
-    this.formulario.controls.importante.setValue(this.tareaProp.importante);
-    this.formulario.controls.realizada.setValue(this.tareaProp.realizada);
-    this.formulario.controls.id.setValue(this.tareaProp.id);
+    if(this.tareaProp) {
+      this.formulario.controls.descripcion.setValue(this.tareaProp.descripcion);
+      this.formulario.controls.importante.setValue(this.tareaProp.importante);
+      this.formulario.controls.realizada.setValue(this.tareaProp.realizada);
+      this.formulario.controls.id.setValue(this.tareaProp.id);
+    }
   }
 
   // cerramos el modal
@@ -38,6 +41,5 @@ export class ModalTareaPage implements OnInit {
   public enviar(value) {
     this.modalCtrl.dismiss({data: value});
   }
-
 
 }

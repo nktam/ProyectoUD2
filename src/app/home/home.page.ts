@@ -13,7 +13,7 @@ import {Tarea} from '../model/tarea';
 export class HomePage {
   constructor(public servicio: ServicioTareaService, public modalCtrl: ModalController) {}
 
-  // Abrimos modal-tarea. Esperamos a que se cierre (onWillDismiss) para recoger los datos.
+  // Abrimos modal-tarea y speramos a que se cierre (onWillDismiss) para recoger los datos.
   async nuevaTarea() {
     const modal=await this.modalCtrl.create({
       component: ModalTareaPage
@@ -59,6 +59,16 @@ export class HomePage {
   public borrarTarea(tarea: Tarea) {
     const pos=this.servicio.buscarTarea(tarea);
     this.servicio.eliminarTarea(pos);
+  }
+
+  // Buscamos si hay tareas finalizadas
+  public buscarTareasRealizadas() {
+    for(let i=0; i<this.servicio.tareas.length; i++) {
+      if(this.servicio.tareas[i].realizada) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }

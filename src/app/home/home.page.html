@@ -31,7 +31,7 @@
     </ion-item-sliding>
   </ion-list>
 
-  <ion-text color="secondary" *ngIf='servicio.tareas.length > 0'>
+  <ion-text *ngIf="buscarTareasRealizadas()">
     <h2>Tareas finalizadas</h2>
   </ion-text>
 
