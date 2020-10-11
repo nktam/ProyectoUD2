@@ -1,8 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title> Nueva tarea </ion-title>
+    <ion-title>
+      <span *ngIf='!tareaProp; else elseBlock'>Nueva tarea</span>
+      <ng-template #elseBlock><span>Modificar tarea</span></ng-template>
+    </ion-title>
     <ion-buttons slot="end" (click)='cerrar()'>
-      <ion-icon name="close-circle-outline" color='danger' size='large'></ion-icon>
+      <ion-icon name="close-circle-outline" size='large'></ion-icon>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -18,7 +21,8 @@
     </ion-item>
     <div class="divboton">
       <ion-button color='primary' type='submit' [disabled]='!formulario.valid'>
-        Añadir tarea
+        <span *ngIf='!tareaProp; else elseBlock2'>Añadir tarea</span>
+        <ng-template #elseBlock2><span>Modificar</span></ng-template>
       </ion-button>
     </div>
 

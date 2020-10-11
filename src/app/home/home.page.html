@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>
       Lista de Tareas
@@ -39,7 +39,7 @@
     <ion-item-sliding *ngFor='let tarea of servicio.tareas'>
       <div *ngIf="tarea.realizada">
         <ion-item>
-          <ion-label>
+          <ion-label class="tachado">
             <span *ngIf="tarea.importante; else elseBlock" [innerHTML]="tarea.descripcion | negrita"></span>
             <ng-template #elseBlock>{{tarea.descripcion}}</ng-template>
           </ion-label>
