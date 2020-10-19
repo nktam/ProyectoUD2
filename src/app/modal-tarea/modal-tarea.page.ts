@@ -26,8 +26,6 @@ export class ModalTareaPage implements OnInit {
     if(this.tareaProp) {
       this.formulario.controls.descripcion.setValue(this.tareaProp.descripcion);
       this.formulario.controls.importante.setValue(this.tareaProp.importante);
-      this.formulario.controls.realizada.setValue(this.tareaProp.realizada);
-      this.formulario.controls.id.setValue(this.tareaProp.id);
     }
   }
 

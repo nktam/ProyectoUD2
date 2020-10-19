@@ -36,29 +36,22 @@ export class HomePage {
     await modal.present();
     let {data}=await modal.onWillDismiss();
     if(data) {
-      const pos=this.servicio.buscarTarea(tarea);
-      this.servicio.eliminarTarea(pos);
-      this.servicio.addTarea(new Tarea(data.data.descripcion, data.data.importante, tarea.realizada, tarea.id));
+      this.servicio.modificarTarea(tarea, data.data.descripcion, data.data.importante, tarea.realizada, tarea.id);
     }
   }
 
   // Marcamos la tarea cómo realizada
   public tareaRealizada(tarea: Tarea) {
-    const pos=this.servicio.buscarTarea(tarea);
-    this.servicio.eliminarTarea(pos);
-    this.servicio.addTarea(new Tarea(tarea.descripcion, tarea.importante, true, tarea.id));
+    this.servicio.modificarTarea(tarea, tarea.descripcion, tarea.importante, true, tarea.id);
   }
 
   // Dejamos la tarea cómo no realizada
   public tareaSinRealizar(tarea: Tarea) {
-    const pos=this.servicio.buscarTarea(tarea);
-    this.servicio.eliminarTarea(pos);
-    this.servicio.addTarea(new Tarea(tarea.descripcion, tarea.importante, false, tarea.id));
+    this.servicio.modificarTarea(tarea, tarea.descripcion, tarea.importante, false, tarea.id);
   }
 
   public borrarTarea(tarea: Tarea) {
-    const pos=this.servicio.buscarTarea(tarea);
-    this.servicio.eliminarTarea(pos);
+    this.servicio.eliminarTarea(tarea);
   }
 
   // Buscamos si hay tareas finalizadas

@@ -4,11 +4,12 @@ import {IonicModule} from '@ionic/angular';
 import {FormsModule} from '@angular/forms';
 import {HomePage} from './home.page';
 import {HomePageRoutingModule} from './home-routing.module';
-import {NegritaPipe} from '../pipes/negrita.pipe';
+import {OrdenarPipe} from '../pipes/ordenar.pipe';
+import {OrdenarRealizadasPipe} from '../pipes/ordenar-realizadas.pipe';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, HomePageRoutingModule],
-  declarations: [HomePage, NegritaPipe],
+  declarations: [HomePage, OrdenarPipe, OrdenarRealizadasPipe],
 })
 export class HomePageModule {}
 

@@ -18,11 +18,7 @@ export class ServicioTareaService {
   }
 
   public addTarea(tarea: Tarea) {
-    if(tarea.importante) {
-      this.tareas=[tarea, ...this.tareas];
-    } else {
-      this.tareas=[...this.tareas, tarea];
-    }
+    this.tareas=[tarea, ...this.tareas];
   }
 
   // para buscar la posición de la tarea en el array  
@@ -34,7 +30,14 @@ export class ServicioTareaService {
     }
   }
 
-  public eliminarTarea(pos) {
+  public modificarTarea(tarea, descripcion, importante, realizada, id) {
+    const pos=this.buscarTarea(tarea);
+    this.tareas[pos]={descripcion, importante, realizada, id};
+    this.tareas=[...this.tareas];
+  }
+
+  public eliminarTarea(tarea) {
+    const pos=this.buscarTarea(tarea);
     this.tareas=[...this.tareas.slice(0, pos), ...this.tareas.slice(pos+1)];
   }
 
