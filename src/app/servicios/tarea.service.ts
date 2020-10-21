@@ -19,7 +19,6 @@ export class ServicioTareaService {
         this.tareas=datos.map((tarea) => Tarea.fromJson(tarea));
         //this.tareas=datos;
       },
-
       (error) => console.log(error)
     );
 
@@ -41,8 +40,15 @@ export class ServicioTareaService {
   }
 
   public addTarea(tarea: Tarea) {
-    this.tareas=[tarea, ...this.tareas];
-    this.storage.setObject("tareas", this.tareas);
+    this.http.createItem(tarea).subscribe(
+      (data) => {
+        console.log(data);
+        this.tareas=[data, ...this.tareas];
+      },
+      (error) => {console.log(error)}
+    );
+
+    //this.storage.setObject("tareas", this.tareas);
   }
 
   // para buscar la posición de la tarea en el array  
@@ -57,25 +63,27 @@ export class ServicioTareaService {
   public modificarTarea(tarea, descripcion, importante, realizada, id) {
     const pos=this.buscarTarea(tarea);
     this.tareas[pos]={descripcion, importante, realizada, id};
-    this.tareas=[...this.tareas];
-    this.storage.setObject("tareas", this.tareas);
+    this.http.updateItem(id, this.tareas[pos]).subscribe(
+      (data) => {
+        console.log(data);
+        this.tareas=[...this.tareas];
+      },
+      (error) => {console.log(error)}
+    );
+    //this.storage.setObject("tareas", this.tareas);
   }
 
   public eliminarTarea(tarea) {
     const pos=this.buscarTarea(tarea);
-    this.tareas=[...this.tareas.slice(0, pos), ...this.tareas.slice(pos+1)];
-    this.storage.setObject("tareas", this.tareas);
+    this.http.deleteItem(tarea.id).subscribe(
+      (data) => {
+        console.log(tarea);
+        this.tareas=[...this.tareas.slice(0, pos), ...this.tareas.slice(pos+1)];
+      },
+      (error) => {console.log(error)}
+    );
+    //this.storage.setObject("tareas", this.tareas);
   }
 
-  private fromJson(data: any) {
-    // if(!data.descripcion||!data.importante||!data.realizada) {
-    //   throw (new Error("Argumento inválido: la estructura no concuerda con el modelo"));
-    // }
-    // console.log(data.descripcion);
-    // console.log(data.importante);
-    // console.log(data.realizada);
-    // console.log(data.id);
-    return new Tarea(data.descripcion, data.importante, data.realizada, data.id);
-  }
 
 }

@@ -41,57 +41,42 @@ export class HttpService {
 
   }
 
-
   createItem(item): Observable<Tarea> {
-
-    console.log(item);
-
+    let datos=`{"descripcion":"${item.descripcion}", "importante":${item.importante}, "realizada":${item.realizada}}`;
     return this.http
-      .post<Tarea>(this.base_path, JSON.stringify(item), this.httpOptions)
+      .post<Tarea>(this.base_path, datos, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
   }
 
-
   getItem(id): Observable<Tarea> {
-
     return this.http
       .get<Tarea>(this.base_path+"/"+id)
       .pipe(retry(2), catchError(this.handleError));
 
   }
 
-
   getList(): Observable<Tarea[]> {
-
     return this.http
       .get<Tarea[]>(this.base_path)
       .pipe(retry(2), catchError(this.handleError));
 
   }
 
-
   updateItem(id, item): Observable<Tarea> {
-
     return this.http
-
       .put<Tarea>(
         this.base_path+"/"+id,
         JSON.stringify(item),
         this.httpOptions
-
       )
-
       .pipe(retry(2), catchError(this.handleError));
 
   }
 
-
   deleteItem(id) {
-
     return this.http
       .delete<Tarea>(this.base_path+"/"+id, this.httpOptions)
       .pipe(retry(2), catchError(this.handleError));
-
   }
 
 }
