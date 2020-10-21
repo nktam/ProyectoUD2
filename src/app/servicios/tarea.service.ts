@@ -16,8 +16,8 @@ export class ServicioTareaService {
 
     this.http.getList().subscribe(
       (datos) => {
-        datos.map((tarea) => this.fromJson(tarea));
-        this.tareas=datos;
+        this.tareas=datos.map((tarea) => Tarea.fromJson(tarea));
+        //this.tareas=datos;
       },
 
       (error) => console.log(error)

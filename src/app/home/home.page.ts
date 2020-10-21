@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ServicioTareaService} from '../servicios/servicio-tarea.service';
+import {ServicioTareaService} from '../servicios/tarea.service';
 import {ModalController} from '@ionic/angular';
 import {ModalTareaPage} from '../modal-tarea/modal-tarea.page';
 import {Tarea} from '../model/tarea';
