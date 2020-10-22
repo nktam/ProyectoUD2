@@ -14,41 +14,37 @@ export class ServicioTareaService {
 
     this.tareas=[];
 
+    // 1 Cargo las tareas del storage para emepzar a trabajar enseguida
+    this.storage.getObject("tareas").then((data) => {
+      if(data) {
+        this.tareas=<Tarea[]><unknown>data;
+      }
+    })
+
+    // 2 cargo las tareas del servidor esta son las de fiar machacan al storage
     this.http.getList().subscribe(
       (datos) => {
-        this.tareas=datos.map((tarea) => Tarea.fromJson(tarea));
-        //this.tareas=datos;
+        //this.tareas=datos; esto revisar
+        this.storage.setObject("tareas", datos); // guardo las tareas en el storage
+        this.tareas=datos.map((tarea) => Tarea.fromJson(tarea)); // actualiza tareas
       },
       (error) => console.log(error)
     );
 
-    // this.tareas=[
-    //   new Tarea('Comprar pan', true, false),
-    //   new Tarea('Recoger moto', true, false),
-    //   new Tarea('Comprar moto', true, true),
-    //   new Tarea('Hacer deberes', false, false),
-    //   new Tarea('Deporte', false, true),
-    // ];
-
-
-    // this.storage.getObject("tareas").then((data) => {
-    //   if(data) {
-    //     this.tareas=<Tarea[]><unknown>data;
-    //   }
-    // })
-
   }
 
   public addTarea(tarea: Tarea) {
+
+    // 1 creo la tarea en el servidor para recibir id
     this.http.createItem(tarea).subscribe(
       (data) => {
-        console.log(data);
-        this.tareas=[data, ...this.tareas];
+        this.tareas=[data, ...this.tareas]; // actualizo tareas
+        this.storage.setObject("tareas", this.tareas); // guardo tareas en storage
       },
       (error) => {console.log(error)}
     );
 
-    //this.storage.setObject("tareas", this.tareas);
+
   }
 
   // para buscar la posición de la tarea en el array  
@@ -62,27 +58,26 @@ export class ServicioTareaService {
 
   public modificarTarea(tarea, descripcion, importante, realizada, id) {
     const pos=this.buscarTarea(tarea);
-    this.tareas[pos]={descripcion, importante, realizada, id};
-    this.http.updateItem(id, this.tareas[pos]).subscribe(
+    this.tareas[pos]={descripcion, importante, realizada, id}; // modifico la tarea
+    this.storage.setObject("tareas", this.tareas); // guardo en storage
+    this.http.updateItem(id, this.tareas[pos]).subscribe( // modificola tarea en el servidor
       (data) => {
-        console.log(data);
-        this.tareas=[...this.tareas];
+        this.tareas=[...this.tareas]; // actualizo tareas para recargar la lista
       },
       (error) => {console.log(error)}
     );
-    //this.storage.setObject("tareas", this.tareas);
+
   }
 
   public eliminarTarea(tarea) {
     const pos=this.buscarTarea(tarea);
-    this.http.deleteItem(tarea.id).subscribe(
+    this.http.deleteItem(tarea.id).subscribe( // elimito tarea del servidor
       (data) => {
-        console.log(tarea);
-        this.tareas=[...this.tareas.slice(0, pos), ...this.tareas.slice(pos+1)];
+        this.tareas=[...this.tareas.slice(0, pos), ...this.tareas.slice(pos+1)]; // si se elimina correctamente la elimino de tareas
+        this.storage.setObject("tareas", this.tareas); // guardo tareas en el storage
       },
       (error) => {console.log(error)}
     );
-    //this.storage.setObject("tareas", this.tareas);
   }
 
 

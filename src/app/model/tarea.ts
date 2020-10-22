@@ -4,7 +4,7 @@ export class Tarea {
     public descripcion: string,
     public importante: boolean=false,
     public realizada: boolean=false,
-    public id: number
+    public id: number=-1
   ) {}
 
   static fromJson(data: any) {
