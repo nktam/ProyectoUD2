@@ -21,12 +21,12 @@ export class ServicioTareaService {
       }
     })
 
-    // 2 cargo las tareas del servidor esta son las de fiar machacan al storage
+    // 2 cargo las tareas del servidor. Esta son las de referencia, machacan al storage
     this.http.getList().subscribe(
       (datos) => {
-        //this.tareas=datos; esto revisar
-        this.storage.setObject("tareas", datos); // guardo las tareas en el storage
-        this.tareas=datos.map((tarea) => Tarea.fromJson(tarea)); // actualiza tareas
+        datos.map((tarea) => Tarea.fromJson(tarea)); // Compruebo las tareas del servidor
+        this.tareas=datos; // actualiza las tareas con las del sevidor
+        this.storage.setObject("tareas", datos); // guardo las tareas del servidor en local storage
       },
       (error) => console.log(error)
     );
@@ -66,7 +66,6 @@ export class ServicioTareaService {
       },
       (error) => {console.log(error)}
     );
-
   }
 
   public eliminarTarea(tarea) {
